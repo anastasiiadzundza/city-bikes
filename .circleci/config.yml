@@ -50,7 +50,7 @@ jobs:
           command: bin/deploy $CIRCLE_BRANCH
 #      - run:
 #          name: Deploy to Firebase
-#          command: ./firebase-deploy/node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
+#          command: ./firebase-deploy/node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN" 
 
 workflows:
   version: 2
