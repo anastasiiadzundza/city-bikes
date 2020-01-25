@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "city-bikes-eb2b4"
+  },
+  "targets": {
+    "city-bikes-eb2b4": {
+      "hosting": {
+        "testing": [
+          "city-bikes-testing"
+        ],
+        "prod": [
+          "city-bikes-eb2b4"
+        ]
+      }
+    }
   }
 }
