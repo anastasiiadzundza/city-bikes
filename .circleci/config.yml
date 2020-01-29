@@ -48,9 +48,7 @@ jobs:
       - run:
           name: Deploy to Firebase
           command: bin/deploy $CIRCLE_BRANCH
-#      - run:
-#          name: Deploy to Firebase
-#          command: ./firebase-deploy/node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
+
 
 workflows:
   version: 2
@@ -60,6 +58,3 @@ workflows:
       - deploy: # perform second
           requires:
             - build
-#          filters: # only for the master branch
-#            branches:
-#              only: master
