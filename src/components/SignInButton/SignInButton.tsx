@@ -14,9 +14,9 @@ const SignInButton: FunctionComponent<{}> = () => {
             const auth2 = gapi.auth2.init({
                 client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
             });
-            auth2.then(() => {
-                dispatch(actions.setIfSignedIn(auth2.isSignedIn.get()));
-            });
+            // auth2.then(() => {
+            //     dispatch(actions.setIfSignedIn(auth2.isSignedIn.get()));
+            // });
     
             console.log(auth2);
         });
@@ -27,6 +27,7 @@ const SignInButton: FunctionComponent<{}> = () => {
             const opts = {
                 width: 200,
                 height: 50,
+                longtitle: true,
                 client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
                 onsuccess: successCallback
             };
@@ -46,7 +47,7 @@ const SignInButton: FunctionComponent<{}> = () => {
     
      return (
          <div className="signin-button">
-             <button id="loginButton">SignIn</button>
+             <button id="loginButton"></button>
          </div>
      );
 };
