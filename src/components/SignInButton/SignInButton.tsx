@@ -14,9 +14,6 @@ const SignInButton: FunctionComponent<{}> = () => {
             const auth2 = gapi.auth2.init({
                 client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
             });
-            // auth2.then(() => {
-            //     dispatch(actions.setIfSignedIn(auth2.isSignedIn.get()));
-            // });
     
             console.log(auth2);
         });
