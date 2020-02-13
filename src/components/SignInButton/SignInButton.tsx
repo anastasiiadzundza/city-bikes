@@ -4,15 +4,14 @@ import { useDispatch } from 'react-redux';
 import './SignInButton.css';
 
 const SignInButton: FunctionComponent<{}> = () => {
-    const [err, setErr] = useState(null);
-    let auth2;
+    const [, setErr] = useState(null);
 
     const dispatch = useDispatch();
      useEffect(() => {
         const successCallback = onSuccess;
 
         window.gapi.load('auth2', () => {
-            auth2 = gapi.auth2.init({
+            const auth2 = gapi.auth2.init({
                 client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
             });
             auth2.then(() => {
