@@ -1,0 +1,14 @@
+#login-button {
+  padding: 0;
+  border: none;
+}
+
+#root {
+  position: relative;
+}
+.signin-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

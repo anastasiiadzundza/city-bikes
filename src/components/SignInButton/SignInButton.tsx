@@ -1,52 +1,37 @@
-import React, { useState, FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import * as actions from '../../store/actions/actions';
-import { useDispatch } from 'react-redux';
-import './SignInButton.css';
+import {useDispatch} from 'react-redux';
+import './SignInButton.scss';
+import signInService from './../../services/sign-in.service';
+import {
+    useHistory,
+    useLocation
+} from "react-router-dom";
 
 const SignInButton: FunctionComponent<{}> = () => {
-    const [, setErr] = useState(null);
-
-    const dispatch = useDispatch();
-     useEffect(() => {
-        const successCallback = onSuccess;
-
-        window.gapi.load('auth2', () => {
-            const auth2 = gapi.auth2.init({
-                client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-            });
     
-            console.log(auth2);
-        });
-
-        window.gapi.load('signin2', () => {
-            // Method 3: render a sign in button
-            // using this method will show Signed In if the user is already signed in
-            const opts = {
-                width: 200,
-                height: 50,
-                longtitle: true,
-                client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-                onsuccess: successCallback
-            };
-            gapi.signin2.render('loginButton', opts)
-        });
-
+    let history = useHistory();
+    let location = useLocation();
+    
+    let {from} = location.state || {from: {pathname: "/dashboard"}};
+    
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        signInService().renderSignInButton(onSuccess);
     });
-
+    
     const onSuccess = () => {
         dispatch(actions.setIfSignedIn(true));
-        setErr(null);
+        dispatch(actions.getCompanies());
+        history.replace(from);
     };
     
-    // signOut = () => {
-    //     this.auth2.signOut()
-    // };
-    
-     return (
-         <div className="signin-button">
-             <button id="loginButton"></button>
-         </div>
-     );
+    return (
+        <div className="signin-button">
+            <button id="login-button"></button>
+        </div>
+    );
 };
 
 export default SignInButton;

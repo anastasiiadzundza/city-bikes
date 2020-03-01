@@ -1,23 +1,24 @@
-import React, {FunctionComponent} from 'react';
-import SignInButton from './../SignInButton/SignInButton';
-import {useSelector} from 'react-redux';
+import React, { FunctionComponent } from 'react';
+import SignInButton from '../SignInButton/SignInButton';
+import './SignInView.scss';
+import { Loader } from 'semantic-ui-react';
 
-interface RootState {
-    isSignedIn: boolean
+interface SignInViewProps {
+    isLoading: boolean
 }
-
-const App: FunctionComponent<{}> = () => {
-    const isSignedIn = useSelector((store: RootState) => {
-        console.log(store);
-        return store.isSignedIn;
-    });
-
-    if (!isSignedIn) {
-        return <SignInButton></SignInButton>
+const SignInView: FunctionComponent<SignInViewProps> = (props) => {
+    if (props.isLoading) {
+        return (<div className="signin-view">
+            <Loader active inline='centered' />
+        </div>);
     } else {
-        return <p>You are signed in!!!</p>
+        return (
+            <div className="signin-view">
+                <SignInButton></SignInButton>
+            </div>
+        )
     }
 };
 
 
-export default App;
+export default SignInView;

@@ -1,34 +1,30 @@
 import { combineReducers } from 'redux';
-import { Company, Station} from '../types';
-
+import { Company, WidgetData} from '../types';
 
 const initialStateCompanies: Company[] | [] = [];
 
 const companies = (state = initialStateCompanies, action) => {
     switch (action.type) {
-        case 'ADD_COMPANY':
+        case 'SET_COMPANIES':
             return [
-                ...state,
-                action.company
+                ...action.companies
             ];
-        case 'REMOVE_COMPANY':
-            return removeCompany(action.id, state);
         default:
             return state;
     }
 };
 
-const initialStateStations: Station[] | [] = [];
+const initialStateWidget: WidgetData[] | [] = [];
 
-const stations = (state = initialStateStations, action) => {
+const widgetData = (state = initialStateWidget, action) => {
     switch (action.type) {
-        case 'ADD_STATIONS':
+        case 'ADD_WIDGET':
             return [
                 ...state,
-                ...action.stations
+                action.data
             ];
-        case 'REMOVE_STATIONS':
-            return removeStations(action.companyId, state);
+        case 'REMOVE_WIDGET':
+            return removeWidget(action.companyId, state);
         default:
             return state;
     }
@@ -45,20 +41,15 @@ const isSignedIn = (state = initialIsSignedIn, action) => {
     }
 };
 
-function removeCompany(id, companies) {
-    const copiedCompanies = JSON.parse(JSON.stringify(companies));
-    const index = copiedCompanies.findIndex((company) => (company.id === id));
-    return copiedCompanies.splice(index, 1)
-};
-
-function removeStations(companyId, stations) {
-    const copiedStations = JSON.parse(JSON.stringify(stations));
-    return copiedStations.filter(station => (station.id !== companyId));
+function removeWidget(companyId, widgetData) {
+    const copiedData = JSON.parse(JSON.stringify(widgetData));
+    console.log(copiedData.filter(widget => (widget.id !== companyId)));
+    return copiedData.filter(widget => (widget.id !== companyId));
 };
 
 export const rootReducer = combineReducers({
     companies,
-    stations,
+    widgetData,
     isSignedIn
 });
 
