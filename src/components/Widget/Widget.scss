@@ -3,7 +3,7 @@
   display: flex;
 
   .station-prop {
-    opacity: 60%;
+    color: #92928c;
   }
 
   .ui.button {
@@ -14,7 +14,8 @@
 
   .remove-button {
     padding: 5px;
-    opacity: 60%;
+    color: #92928c;
+    cursor: pointer;
   }
 
   .ui.card {

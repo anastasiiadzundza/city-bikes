@@ -1,17 +1,6 @@
 .company-list {
   position: relative;
 
-  .menu {
-    max-height: 300px;
-    max-width: 300px;
-    overflow-y: auto;
-    top: 15px;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
   .ui.dropdown {
     border: none;
     background: #e0e1e2 none;
@@ -26,6 +15,17 @@
 
     i.icon {
       margin: 0;
+    }
+
+    .menu {
+      max-height: 300px;
+      max-width: 300px;
+      overflow-y: auto;
+      top: 15px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 }
