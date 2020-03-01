@@ -31,7 +31,7 @@ export default function bikesService() {
         return {
             id: network.id,
             name: network.name,
-            city: network.location.city ? network.location.city : '',
+            city: network.location ? network.location.city : '',
             stations: network.stations,
         };
     };
