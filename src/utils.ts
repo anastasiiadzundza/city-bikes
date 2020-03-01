@@ -2,7 +2,7 @@ import axios from 'axios';
 
  export default function utils() {
     const instance = axios.create({
-        baseURL: 'http://api.citybik.es/v2',
+        baseURL: 'https://api.citybik.es/v2',
         timeout: 3000,
     });
     
