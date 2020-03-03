@@ -26,7 +26,6 @@ export default function bikesService() {
             console.log(`${id} not available`);
           return {};
         }
-        console.log(networkResponse);
         const network = networkResponse.data.network;
         return {
             id: network.id,
