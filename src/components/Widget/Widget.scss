@@ -1,0 +1,25 @@
+.widget {
+  max-height: fit-content;
+  display: flex;
+
+  .station-prop {
+    color: #92928c;
+  }
+
+  .ui.button {
+    padding: 10px;
+    height: fit-content;
+    width: fit-content;
+  }
+
+  .remove-button {
+    padding: 5px;
+    color: #92928c;
+    cursor: pointer;
+  }
+
+  .ui.card {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+}

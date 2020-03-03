@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$BRANCH" == "master" ]; then
+if [ "$CIRCLE_BRANCH" == "master" ]; then
     ./firebase-deploy/node_modules/.bin/firebase deploy --only hosting:prod --token="$FIREBASE_TOKEN"
 else
     ./firebase-deploy/node_modules/.bin/firebase deploy --only hosting:testing --token="$FIREBASE_TOKEN"
