@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect } from 'react';
 import * as actions from '../../store/actions/actions';
 import {useDispatch} from 'react-redux';
 import './SignInButton.scss';
-import signInService from './../../services/sign-in.service';
+import googleService from '../../services/google.service';
 import {
     useHistory,
     useLocation
@@ -18,7 +18,7 @@ const SignInButton: FunctionComponent<{}> = () => {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        signInService().renderSignInButton(onSuccess);
+        googleService().renderSignInButton(onSuccess);
     });
     
     const onSuccess = () => {

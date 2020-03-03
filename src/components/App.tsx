@@ -3,19 +3,26 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    Redirect
 } from "react-router-dom";
 import './App.scss';
 import SignInView from "./SignInView/SignInView";
 import Dashboard from "./Dashboard/Dashboard";
-import signInService from './../services/sign-in.service';
+import googleService from '../services/google.service';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const App: FunctionComponent<{}> = () => {
     const [isLoading, setIsLoading] = useState(true);
-    signInService().initGoogleAuth(setIsLoading);
+    googleService().initGoogleAuth(setIsLoading);
     return (
         <Router>
             <Switch>
+                <Route path="/" exact render={({location}) => (
+                    <Redirect to={{
+                        pathname: "/dashboard",
+                        state: { from: location }
+                    }}/>
+                )}/>
                 <PrivateRoute path="/dashboard">
                     <Dashboard/>
                 </PrivateRoute>

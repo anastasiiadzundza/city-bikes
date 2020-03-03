@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Icon, Grid } from 'semantic-ui-react';
 import Widget from './../Widget/Widget';
 import CompanyList from './../CompanyList/CompanyList';
-import signInService from './../../services/sign-in.service';
+import googleService from '../../services/google.service';
 import { WidgetData } from './../../store/types';
 import { map } from "lodash";
 import {
@@ -39,10 +39,10 @@ const Dashboard: FunctionComponent<{}> = () => {
     };
 
     const signOut = () => {
-        signInService().signOut()
+        googleService().signOut()
             .then(() => {
                 dispatch(actions.setIfSignedIn(false));
-                history.push("/dashboard")
+                history.push("/dashboard");
             });
     };
     
