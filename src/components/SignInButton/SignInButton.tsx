@@ -19,11 +19,10 @@ const SignInButton: FunctionComponent<{}> = () => {
     
     useEffect(() => {
         googleService().renderSignInButton(onSuccess);
-    });
+    }, []);
     
-    const onSuccess = () => {
-        dispatch(actions.setIfSignedIn(true));
-        dispatch(actions.getCompanies());
+    const onSuccess = (googleUser) => {
+        localStorage.setItem('userId',googleUser.getId());
         history.replace(from);
     };
     

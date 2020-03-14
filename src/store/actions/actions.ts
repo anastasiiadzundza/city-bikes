@@ -17,11 +17,6 @@ export const removeWidget = (companyId: string) => ({
     companyId,
 });
 
-export const setIfSignedIn = (isSignedIn: boolean) => ({
-    type: 'SET_IF_SIGNED_IN',
-    isSignedIn,
-});
-
 const sort = (items): any => {
     return items.sort((a, b) => {
         const nameA = a.name.toUpperCase();

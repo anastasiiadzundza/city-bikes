@@ -12,8 +12,8 @@ export default function bikesService() {
         return networksResponse.data.networks.map(network => ({
             id: network.id,
             name: network.name,
-            city: network.location.city,
-            country: network.location.country,
+            city: network.location ? network.location.city : '',
+            country: network.location ? network.location.country : '',
         }));
     };
     

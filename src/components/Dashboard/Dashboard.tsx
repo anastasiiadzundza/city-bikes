@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import './Dashboard.scss';
 import * as actions from '../../store/actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,8 +29,13 @@ const Dashboard: FunctionComponent<{}> = () => {
             widgetData: store.widgetData,
         };
     });
+    
+    useEffect(() => {
+        dispatch(actions.getCompanies());
+    }, []);
 
     const renderWidgets = () => {
+        console.log(storeState.widgetData);
         return map(storeState.widgetData, (company) => {
             return <Grid.Column key={company.id}>
                 <Widget company={company}></Widget>
@@ -41,8 +46,8 @@ const Dashboard: FunctionComponent<{}> = () => {
     const signOut = () => {
         googleService().signOut()
             .then(() => {
-                dispatch(actions.setIfSignedIn(false));
-                history.push("/dashboard");
+                history.push("/signin");
+                localStorage.removeItem('userId');
             });
     };
     

@@ -12,8 +12,7 @@ import googleService from '../services/google.service';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const App: FunctionComponent<{}> = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    googleService().initGoogleAuth(setIsLoading);
+    googleService().initGoogleAuth();
     return (
         <Router>
             <Switch>
@@ -27,7 +26,7 @@ const App: FunctionComponent<{}> = () => {
                     <Dashboard/>
                 </PrivateRoute>
                 <Route path="/signin">
-                    <SignInView isLoading={isLoading} />
+                    <SignInView/>
                 </Route>
             </Switch>
         </Router>
