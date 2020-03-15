@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import * as actions from '../../store/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import './CompanyList.scss';

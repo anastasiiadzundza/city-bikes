@@ -1,9 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import * as actions from '../../store/actions/actions';
 import { useDispatch } from 'react-redux';
 import './Widget.scss';
 import { Card, Icon } from 'semantic-ui-react';
 import { Station } from './../../store/types';
+import { map } from "lodash";
 
 interface CompanyWithStations {
     id: string,
@@ -20,16 +21,17 @@ const Widget: FunctionComponent<WidgetProps> = (props) => {
     
     const dispatch = useDispatch();
     const roundNumber = num => Math.round((num + Number.EPSILON) * 100) / 100;
-    
+
+
      const renderStations = () => {
-        return  props.company.stations.map(station => (
+        return  map(props.company.stations,(station => (
     
             <Card.Content key={station.id}>
                 <p>{ station.name }   {roundNumber(station.latitude)}<Icon name='map marker alternate'/>{roundNumber(station.longitude)}</p>
                 <p><span className="station-prop">empty slots</span> <span>{station.empty_slots}</span></p>
                 <p><span className="station-prop">free bikes</span> <span>{station.free_bikes}</span></p>
             </Card.Content>
-        ));
+        )));
      };
      
      const removeWidget = (id) => {

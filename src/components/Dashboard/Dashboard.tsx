@@ -19,6 +19,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const dispatchProps = {
     getCompanies: actions.getCompanies,
+    getBikeNetworkDetails: actions.getBikeNetworkDetails,
 };
 
 const connector = connect(mapStateToProps, dispatchProps);
@@ -27,8 +28,15 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 class Dashboard extends React.Component<PropsFromRedux, {}> {
 
+    interval : any;
+
     componentDidMount() {
         this.props.getCompanies();
+        this.interval = setInterval(() => map(this.props.widgetData, widget => this.props.getBikeNetworkDetails(widget.id)), 1000 * 5);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     renderWidgets = () => {
