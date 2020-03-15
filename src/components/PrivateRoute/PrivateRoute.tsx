@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { useSelector } from 'react-redux';
 import {
     Route,
     Redirect,
@@ -10,7 +9,7 @@ interface Props {
 }
 
 const PrivateRoute: FunctionComponent<Props>  = ({children, ...rest}) => {
-    
+
     const isSignedIn = localStorage.getItem('userId');
     
     return (

@@ -4,11 +4,11 @@ import './SignInView.scss';
 
 const SignInView: FunctionComponent<{}> = () => {
 
-        return (
-            <div className="signin-view">
-                <SignInButton></SignInButton>
-            </div>
-        )
+    return (
+        <div className="signin-view">
+            <SignInButton></SignInButton>
+        </div>
+    )
 };
 
 export default SignInView;

@@ -1,6 +1,4 @@
 import React, { FunctionComponent, useEffect } from 'react';
-import * as actions from '../../store/actions/actions';
-import {useDispatch} from 'react-redux';
 import './SignInButton.scss';
 import googleService from '../../services/google.service';
 import {
@@ -12,17 +10,15 @@ const SignInButton: FunctionComponent<{}> = () => {
     
     let history = useHistory();
     let location = useLocation();
-    
+
     let {from} = location.state || {from: {pathname: "/dashboard"}};
-    
-    const dispatch = useDispatch();
-    
+
     useEffect(() => {
         googleService().renderSignInButton(onSuccess);
-    }, []);
+    });
     
     const onSuccess = (googleUser) => {
-        localStorage.setItem('userId',googleUser.getId());
+        localStorage.setItem('userId', googleUser.getId());
         history.replace(from);
     };
     
