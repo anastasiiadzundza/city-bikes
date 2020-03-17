@@ -28,11 +28,26 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 class Dashboard extends React.Component<PropsFromRedux, {}> {
 
-    interval : any;
+    interval: any;
+
+    updateWidgetData = () => {
+        map(this.props.widgetData, widget => this.props.getBikeNetworkDetails(widget.id));
+    };
 
     componentDidMount() {
         this.props.getCompanies();
-        this.interval = setInterval(() => map(this.props.widgetData, widget => this.props.getBikeNetworkDetails(widget.id)), 1000 * 5);
+
+        const widgetIdsString = localStorage.getItem('widgetData');
+        if (widgetIdsString !== null && widgetIdsString.length) {
+            map(widgetIdsString.split(','), id => {
+                this.props.getBikeNetworkDetails(id)
+            });
+        }
+
+        this.updateWidgetData();
+        this.interval = setInterval(() => {
+            this.updateWidgetData()
+        }, 1000 * 5);
     }
 
     componentWillUnmount() {
@@ -40,6 +55,9 @@ class Dashboard extends React.Component<PropsFromRedux, {}> {
     }
 
     renderWidgets = () => {
+        if (this.props.widgetData.length) {
+            localStorage.setItem('widgetData', map(this.props.widgetData, widget => widget.id));
+        }
         return map(this.props.widgetData, (company) => {
             return <Grid.Column key={company.id}>
                 <Widget company={company}></Widget>

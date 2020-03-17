@@ -22,6 +22,8 @@ const widgetData = (state = initialStateWidget, action) => {
             return addWidget(state, action.data);
         case 'REMOVE_WIDGET':
             return removeWidget(action.companyId, state);
+        case 'CLEAR_WIDGET_DATA':
+            return [];
         default:
             return state;
     }

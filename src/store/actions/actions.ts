@@ -17,6 +17,14 @@ export const removeWidget = (companyId: string) => ({
     companyId,
 });
 
+export const clearWidgetData = () => {
+    console.log('clearWidgetData');
+    return {
+        type: 'CLEAR_WIDGET_DATA',
+    }
+
+};
+
 const sort = (items): any => {
     return items.sort((a, b) => {
         const nameA = a.name.toUpperCase();

@@ -6,7 +6,7 @@ import {
     Redirect
 } from "react-router-dom";
 import './App.scss';
-import SignInView from "./SignInView/SignInView";
+import SignInButton from "./SignInButton/SignInButton";
 import Dashboard from "./Dashboard/Dashboard";
 import googleService from '../services/google.service';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
@@ -26,7 +26,7 @@ const App: FunctionComponent<{}> = () => {
                     <Dashboard/>
                 </PrivateRoute>
                 <Route path="/signin">
-                    <SignInView/>
+                    <SignInButton></SignInButton>
                 </Route>
             </Switch>
         </Router>
