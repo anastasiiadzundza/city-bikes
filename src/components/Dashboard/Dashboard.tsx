@@ -26,7 +26,7 @@ const connector = connect(mapStateToProps, dispatchProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-class Dashboard extends React.Component<PropsFromRedux, {}> {
+export class Dashboard extends React.Component<PropsFromRedux, {}> {
 
     interval: any;
 

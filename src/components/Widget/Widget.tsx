@@ -26,7 +26,7 @@ const Widget: FunctionComponent<WidgetProps> = (props) => {
         return map(props.company.stations, (station => (
 
             <Card.Content key={station.id}>
-                <p>{station.name} {roundNumber(station.latitude)}<Icon
+                <p className="station-name">{station.name} {roundNumber(station.latitude)}<Icon
                     name='map marker alternate'/>{roundNumber(station.longitude)}</p>
                 <p><span className="station-prop">empty slots</span> <span>{station.empty_slots}</span></p>
                 <p><span className="station-prop">free bikes</span> <span>{station.free_bikes}</span></p>

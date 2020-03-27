@@ -11,18 +11,15 @@ export const addWidget = (data: any) => ({
     data,
 });
 
-
 export const removeWidget = (companyId: string) => ({
     type: 'REMOVE_WIDGET',
     companyId,
 });
 
 export const clearWidgetData = () => {
-    console.log('clearWidgetData');
     return {
         type: 'CLEAR_WIDGET_DATA',
     }
-
 };
 
 const sort = (items): any => {

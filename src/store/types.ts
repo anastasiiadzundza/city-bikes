@@ -18,5 +18,5 @@ export interface WidgetData {
     id: string,
     name: string,
     city: string,
-    stations: any,
+    stations: Station[],
 }
