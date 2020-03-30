@@ -8,6 +8,7 @@ import CompanyList from './../CompanyList/CompanyList';
 import SignOutButton from './../SignOutButton/SignOutButton';
 import { WidgetData } from './../../store/types';
 import { map } from "lodash";
+import storageService from './../../services/storage.service';
 
 interface RootState {
     widgetData: WidgetData[],
@@ -31,23 +32,21 @@ export class Dashboard extends React.Component<PropsFromRedux, {}> {
     interval: any;
 
     updateWidgetData = () => {
-        map(this.props.widgetData, widget => this.props.getBikeNetworkDetails(widget.id));
+        const widgetIds = storageService().getWidgetIds();
+        if (widgetIds.length) {
+            map(widgetIds, id => {
+                this.props.getBikeNetworkDetails(id)
+            });
+        }
     };
 
     componentDidMount() {
         this.props.getCompanies();
 
-        const widgetIdsString = localStorage.getItem('widgetData');
-        if (widgetIdsString !== null && widgetIdsString.length) {
-            map(widgetIdsString.split(','), id => {
-                this.props.getBikeNetworkDetails(id)
-            });
-        }
-
         this.updateWidgetData();
         this.interval = setInterval(() => {
             this.updateWidgetData()
-        }, 1000 * 5);
+        }, 1000 * 10);
     }
 
     componentWillUnmount() {
@@ -55,9 +54,6 @@ export class Dashboard extends React.Component<PropsFromRedux, {}> {
     }
 
     renderWidgets = () => {
-        if (this.props.widgetData.length) {
-            localStorage.setItem('widgetData', map(this.props.widgetData, widget => widget.id));
-        }
         return map(this.props.widgetData, (company) => {
             return <Grid.Column key={company.id}>
                 <Widget company={company}></Widget>

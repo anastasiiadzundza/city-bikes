@@ -20,19 +20,26 @@ export default function bikesService() {
     const getBikeNetworkDetails = async (id: string) => {
         let networkResponse;
         try {
+
             networkResponse = await utils().get(`/networks/${id}`);
+            const network = networkResponse.data.network;
+            return {
+                id: network.id,
+                name: network.name,
+                city: network.location ? network.location.city : '',
+                stations: network.stations,
+            };
+
         } catch(err) {
             console.log(err);
             console.log(`${id} not available`);
-          return {};
+          return {
+              id,
+              name: '',
+              city: '',
+              stations: '',
+          };
         }
-        const network = networkResponse.data.network;
-        return {
-            id: network.id,
-            name: network.name,
-            city: network.location ? network.location.city : '',
-            stations: network.stations,
-        };
     };
     
     return {

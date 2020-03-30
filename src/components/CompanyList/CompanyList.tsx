@@ -5,6 +5,7 @@ import './CompanyList.scss';
 import {Dropdown, Icon} from 'semantic-ui-react';
 import {Company} from './../../store/types';
 import {map} from "lodash";
+import storageService from './../../services/storage.service';
 
 interface RootState {
     companies: Company[],
@@ -17,6 +18,7 @@ const CompanyList: FunctionComponent<{}> = () => {
     const companies = useSelector((store: RootState) => store.companies);
 
     const selectCompany = id => {
+        storageService().setWidget(id);
         dispatch(actions.getBikeNetworkDetails(id));
     };
 
