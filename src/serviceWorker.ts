@@ -12,7 +12,7 @@
 
 import {registerRoute} from 'workbox-routing';
 import {CacheFirst} from 'workbox-strategies';
-import {CacheableResponsePlugin} from 'workbox-cacheable-response';
+import {cacheableResponse} from 'workbox';
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -150,7 +150,7 @@ function cacheResponses() {
         new CacheFirst({
             cacheName: 'image-cache',
             plugins: [
-                new CacheableResponsePlugin({
+                new CacheableResponse.Plugin({
                     statuses: [0, 200],
                 })
             ]
