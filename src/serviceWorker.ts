@@ -12,7 +12,7 @@
 
 import {registerRoute} from 'workbox-routing';
 import {CacheFirst} from 'workbox-strategies';
-import {cacheableResponse} from 'workbox';
+import {CacheableResponse} from 'workbox-cacheable-response';
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
