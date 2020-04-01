@@ -10,10 +10,6 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
-import {registerRoute} from 'workbox-routing';
-import {CacheFirst} from 'workbox-strategies';
-import {CacheableResponse} from 'workbox-cacheable-response';
-
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -45,10 +41,12 @@ export function register(config?: Config) {
 
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+      const sw2Url = '../service-worker-2';
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
+        checkValidServiceWorker(sw2Url, config);
 
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
@@ -61,11 +59,8 @@ export function register(config?: Config) {
       } else {
         // Is not localhost. Just register service worker
         registerValidSW(swUrl, config);
+        registerValidSW(sw2Url, config);
       }
-    });
-
-    window.addEventListener('fetch', () => {
-        cacheResponses();
     });
   }
 }
@@ -144,19 +139,6 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
     });
 }
 
-function cacheResponses() {
-    registerRoute(
-        'https://api.citybik.es/v2/networks',
-        new CacheFirst({
-            cacheName: 'image-cache',
-            plugins: [
-                new CacheableResponse.Plugin({
-                    statuses: [0, 200],
-                })
-            ]
-        })
-    );
-}
 
 export function unregister() {
   if ('serviceWorker' in navigator) {
