@@ -10,6 +10,10 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
+import {registerRoute} from 'workbox-routing';
+import {CacheFirst} from 'workbox-strategies';
+import {CacheableResponsePlugin} from 'workbox-cacheable-response';
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -58,6 +62,10 @@ export function register(config?: Config) {
         // Is not localhost. Just register service worker
         registerValidSW(swUrl, config);
       }
+    });
+
+    window.addEventListener('fetch', () => {
+        cacheResponses();
     });
   }
 }
@@ -134,6 +142,20 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
         'No internet connection found. App is running in offline mode.'
       );
     });
+}
+
+function cacheResponses() {
+    registerRoute(
+        'https://api.citybik.es/v2/networks',
+        new CacheFirst({
+            cacheName: 'image-cache',
+            plugins: [
+                new CacheableResponsePlugin({
+                    statuses: [0, 200],
+                })
+            ]
+        })
+    );
 }
 
 export function unregister() {
