@@ -38,22 +38,16 @@ self.addEventListener('fetch', function (e) {
 
   e.respondWith(
     fetch(e.request)
-      .then(function (res) {
-        // Make copy/clone of response
-        var resClone = res.clone();
-        //Open cache
-        caches
-          .open(cacheName).then(function (cache) {
-          //Add response
-          cache.put(e.request, resClone);
-        });
-        return res
-      })
-      .catch(function (err) {
-        caches.match(e.request)
-          .then(function (res) {
-            return res
-          })
-      })
-  )
+      .then(res => {
+      // Make copy/clone of response
+      const resClone = res.clone();
+  // Open cahce
+  caches.open(cacheName).then(cache => {
+    // Add response to cache
+    cache.put(e.request, resClone);
+});
+  return res;
+})
+.catch(err => caches.match(e.request).then(res => res))
+);
 })
