@@ -5,19 +5,19 @@ const cacheAssets = [
 ];
 
 
-window.addEventListener('install', function (e) {
+self.addEventListener('install', function (e) {
   console.log('Service Worker: Installed');
   e.waitUntil(
     caches.open(cacheName)
       .then(function (cache) {
         console.log('Service Worker: Caching Files');
         cache.addAll(cacheAssets)
-          .then(function () { window.skipWaiting() });
+          .then(function () { this.skipWaiting() });
       })
   )
 });
 
-window.addEventListener('activate', function (e) {
+self.addEventListener('activate', function (e) {
   console.log('Service Worker: Activated');
   e.waitUntil(
     caches.keys().then(function (cacheNames) {
@@ -30,7 +30,7 @@ window.addEventListener('activate', function (e) {
     }))
 });
 
-window.addEventListener('fetch', function (e) {
+self.addEventListener('fetch', function (e) {
   console.log('Service Worker: Fetching');
 //          e.respondWith(
 //            fetch(e.request).catch(function () {caches.match(e.request)  })
