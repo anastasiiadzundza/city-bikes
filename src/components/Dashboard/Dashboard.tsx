@@ -9,6 +9,7 @@ import SignOutButton from './../SignOutButton/SignOutButton';
 import { WidgetData } from './../../store/types';
 import { map } from "lodash";
 import storageService from './../../services/storage.service';
+import { Offline } from "react-detect-offline";
 
 interface RootState {
     widgetData: WidgetData[],
@@ -63,15 +64,20 @@ export class Dashboard extends React.Component<PropsFromRedux, {}> {
 
     render () {
         return (
-            <div className="dashboard-view">
-                <div className="side-buttons">
-                    <CompanyList></CompanyList>
-                    <SignOutButton></SignOutButton>
+            <div>
+                <div className="offline-string">
+                    <Offline>You have no internet connection</Offline>
                 </div>
-                <div className="widgets">
-                    <Grid columns={3}>
-                        {this.renderWidgets()}
-                    </Grid>
+                <div className="dashboard-view">
+                    <div className="side-buttons">
+                        <CompanyList></CompanyList>
+                        <SignOutButton></SignOutButton>
+                    </div>
+                    <div className="widgets">
+                        <Grid columns={3}>
+                            {this.renderWidgets()}
+                        </Grid>
+                    </div>
                 </div>
             </div>
         )
