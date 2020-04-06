@@ -38,16 +38,16 @@ const sort = (items): any => {
 };
 
 export const getCompanies = () => {
-    return async dispatch => {
-        const companies = await bikesService().getCompanies();
-        dispatch(setCompanies(sort(companies)));
+    return dispatch => {
+        bikesService().getCompanies()
+            .then(companies => dispatch(setCompanies(sort(companies))));
     }
 };
 
 export const getBikeNetworkDetails = (id: string) => {
-    return async dispatch => {
-        const network = await bikesService().getBikeNetworkDetails(id);
-        dispatch(addWidget(network));
+    return dispatch => {
+        bikesService().getBikeNetworkDetails(id)
+            .then(network => dispatch(addWidget(network)));
     }
 };
 
