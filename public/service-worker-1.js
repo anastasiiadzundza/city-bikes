@@ -1,4 +1,4 @@
-const cacheName = 'city-bikes-cache-v2';
+const cacheName = 'city-bikes-cache-v1';
 
 const cacheAssets = [
   'index.html',

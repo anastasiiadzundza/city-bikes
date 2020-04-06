@@ -13,13 +13,12 @@ const SignOutButton: FunctionComponent<{}> = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const signOut = () => {
-        googleService().signOut()
-            .then(() => {
-                history.push("/signin");
-                localStorage.clear();
-                dispatch(actions.clearWidgetData());
-            });
+    const signOut = async () => {
+        await googleService().signOut();
+
+        history.push("/signin");
+        localStorage.clear();
+        dispatch(actions.clearWidgetData());
     };
     
     return (

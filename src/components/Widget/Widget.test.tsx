@@ -22,16 +22,16 @@ const widgetData: WidgetData = {
         {
             name: 'BikeSt',
             id: '0',
-            empty_slots: '5',
-            free_bikes: '3',
+            empty_slots: 5,
+            free_bikes: 3,
             latitude: '32.6',
             longitude: '43.7'
         },
         {
             name: 'BikeSt2',
             id: '5',
-            empty_slots: '7',
-            free_bikes: '2',
+            empty_slots: 7,
+            free_bikes: 2,
             latitude: '36.6',
             longitude: '93.7'
         }

@@ -29,11 +29,11 @@
 
     <script>
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
+        window.addEventListener('load', () => {
           navigator.serviceWorker
             .register('../service-worker-1.js')
-            .then(function() {console.log('Service Worker: Registered')})
-            .catch(function(err) {console.log('Service Worker: Error:' + err) });
+            .then(() => console.log('Service Worker: Registered'))
+            .catch(err => console.log('Service Worker: Error:' + err));
         });
       }
     </script>

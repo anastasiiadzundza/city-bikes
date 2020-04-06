@@ -3,19 +3,12 @@ import * as actions from '../../store/actions/actions';
 import {useDispatch} from 'react-redux';
 import './Widget.scss';
 import {Card, Icon} from 'semantic-ui-react';
-import {Station} from './../../store/types';
+import {WidgetData} from './../../store/types';
 import {map} from "lodash";
 import storageService from './../../services/storage.service';
 
-interface CompanyWithStations {
-    id: string,
-    name: string,
-    city: string,
-    stations: Station[],
-}
-
 interface WidgetProps {
-    company: CompanyWithStations
+    company: WidgetData
 }
 
 const Widget: FunctionComponent<WidgetProps> = (props) => {
@@ -38,13 +31,12 @@ const Widget: FunctionComponent<WidgetProps> = (props) => {
     const removeWidget = (id) => {
         dispatch(actions.removeWidget(id));
         storageService().removeWidget(id);
-
     };
 
     if (!props.company.city && !props.company.name) {
         return <div className="widget">
             <Card>
-                <p> no data available</p>
+                <p className="no-data">no data available</p>
             </Card>
             <Icon className="remove-button" name='close' onClick={() => removeWidget(props.company.id)}/>
         </div>
