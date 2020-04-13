@@ -19,38 +19,35 @@ const initialStateWidget: WidgetData[] | [] = [];
 const widgetData = (state = initialStateWidget, action) => {
     switch (action.type) {
         case 'ADD_WIDGET':
-            return [
-                ...state,
-                action.data
-            ];
+            return addWidget(state, action.data);
         case 'REMOVE_WIDGET':
             return removeWidget(action.companyId, state);
+        case 'CLEAR_WIDGET_DATA':
+            return [];
         default:
             return state;
     }
 };
 
-const initialIsSignedIn: boolean = false;
+function addWidget(state, data) {
+    const hasState = Array.isArray(state) && state.length;
+    const isNewWidget = hasState ? !state.find(el => el.id === data.id) : true;
 
-const isSignedIn = (state = initialIsSignedIn, action) => {
-    switch (action.type) {
-        case 'SET_IF_SIGNED_IN':
-            return action.isSignedIn;
-        default:
-            return state;
+    if (hasState && isNewWidget) {
+        return [...state, data];
+    } else if (hasState && !isNewWidget) {
+        return [...state];
+    } else if (data) {
+        return [data];
     }
-};
+}
 
 function removeWidget(companyId, widgetData) {
     const copiedData = JSON.parse(JSON.stringify(widgetData));
-    console.log(copiedData.filter(widget => (widget.id !== companyId)));
     return copiedData.filter(widget => (widget.id !== companyId));
 };
 
 export const rootReducer = combineReducers({
     companies,
     widgetData,
-    isSignedIn
 });
-
-export type RootState = ReturnType<typeof rootReducer>

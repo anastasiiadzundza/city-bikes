@@ -1,23 +1,16 @@
 import React, { FunctionComponent } from 'react';
-import { useSelector } from 'react-redux';
 import {
     Route,
     Redirect,
 } from "react-router-dom";
-
-interface RootState {
-    isSignedIn: boolean
-}
 
 interface Props {
     path: string,
 }
 
 const PrivateRoute: FunctionComponent<Props>  = ({children, ...rest}) => {
-    
-    const isSignedIn = useSelector((store: RootState) => {
-        return store.isSignedIn;
-    });
+
+    const isSignedIn = localStorage.getItem('userId');
     
     return (
         <Route {...rest} render={({location}) => isSignedIn ? (children) : (

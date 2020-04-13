@@ -11,16 +11,16 @@ export const addWidget = (data: any) => ({
     data,
 });
 
-
 export const removeWidget = (companyId: string) => ({
     type: 'REMOVE_WIDGET',
     companyId,
 });
 
-export const setIfSignedIn = (isSignedIn: boolean) => ({
-    type: 'SET_IF_SIGNED_IN',
-    isSignedIn,
-});
+export const clearWidgetData = () => {
+    return {
+        type: 'CLEAR_WIDGET_DATA',
+    }
+};
 
 const sort = (items): any => {
     return items.sort((a, b) => {
@@ -39,8 +39,8 @@ const sort = (items): any => {
 
 export const getCompanies = () => {
     return dispatch => {
-    bikesService().getCompanies()
-        .then(companies => dispatch(setCompanies(sort(companies))));
+        bikesService().getCompanies()
+            .then(companies => dispatch(setCompanies(sort(companies))));
     }
 };
 

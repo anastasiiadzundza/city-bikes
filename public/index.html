@@ -27,6 +27,18 @@
 
     <script src="https://apis.google.com/js/api.js"></script>
 
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('../service-worker-1.js')
+            .then(() => console.log('Service Worker: Registered'))
+            .catch(err => console.log('Service Worker: Error:' + err));
+        });
+      }
+    </script>
+
+
     <title>City Bikes App</title>
   </head>
   <body>

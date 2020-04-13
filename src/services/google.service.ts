@@ -1,13 +1,7 @@
 export default function googleService () {
-    const initGoogleAuth = (setIsLoading) => {
-        window.gapi.load('auth2', () => {
-            gapi.auth2.init({
+    const initGoogleAuth = () => {
+        window.gapi.load('auth2', () => {gapi.auth2.init({
                 client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-            });
-            
-            gapi.auth2.getAuthInstance()
-                .then((instance) => {
-                setIsLoading(false);
             });
         });
     };

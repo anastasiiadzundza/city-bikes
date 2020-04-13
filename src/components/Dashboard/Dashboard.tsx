@@ -1,68 +1,90 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import './Dashboard.scss';
 import * as actions from '../../store/actions/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Icon, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import Widget from './../Widget/Widget';
 import CompanyList from './../CompanyList/CompanyList';
-import googleService from '../../services/google.service';
+import SignOutButton from './../SignOutButton/SignOutButton';
 import { WidgetData } from './../../store/types';
 import { map } from "lodash";
-import {
-    useHistory,
-} from "react-router-dom";
-
+import storageService from './../../services/storage.service';
+import { Offline } from "react-detect-offline";
 
 interface RootState {
-    isSignedIn: boolean,
     widgetData: WidgetData[],
 }
 
-const Dashboard: FunctionComponent<{}> = () => {
-    const dispatch = useDispatch();
-    const history = useHistory();
-    
-    const storeState = useSelector((store: RootState) => {
-        console.log(store);
-        return {
-            isSignedIn: store.isSignedIn,
-            widgetData: store.widgetData,
-        };
-    });
+const mapStateToProps = (state: RootState) => ({
+    widgetData: state.widgetData,
+});
 
-    const renderWidgets = () => {
-        return map(storeState.widgetData, (company) => {
+const dispatchProps = {
+    getCompanies: actions.getCompanies,
+    getBikeNetworkDetails: actions.getBikeNetworkDetails,
+};
+
+const connector = connect(mapStateToProps, dispatchProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export class Dashboard extends React.Component<PropsFromRedux, {}> {
+
+    interval: any;
+
+    updateWidgetData = () => {
+        const widgetIds = storageService().getWidgetIds();
+        if (widgetIds.length) {
+            map(widgetIds, id => {
+                this.props.getBikeNetworkDetails(id)
+            });
+        }
+    };
+
+    componentDidMount() {
+        this.props.getCompanies();
+
+        this.updateWidgetData();
+        this.interval = setInterval(() => {
+            this.updateWidgetData()
+        }, 1000 * 10);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    renderWidgets = () => {
+        return map(this.props.widgetData, (company) => {
             return <Grid.Column key={company.id}>
                 <Widget company={company}></Widget>
             </Grid.Column>
         });
     };
 
-    const signOut = () => {
-        googleService().signOut()
-            .then(() => {
-                dispatch(actions.setIfSignedIn(false));
-                history.push("/dashboard");
-            });
-    };
-    
-    return (
-        <div className="dashboard-view">
-            <div className="side-buttons">
-                <CompanyList></CompanyList>
-                <Button circular className="sign-out-button" icon onClick={signOut}>
-                    <Icon name='sign-out'/>
-                </Button>
+    render () {
+        return (
+            <div>
+                <div className="offline-string">
+                    <Offline>You have no internet connection</Offline>
+                </div>
+                <div className="dashboard-view">
+                    <div className="side-buttons">
+                        <CompanyList></CompanyList>
+                        <SignOutButton></SignOutButton>
+                    </div>
+                    <div className="widgets">
+                        <Grid columns={3}>
+                            {this.renderWidgets()}
+                        </Grid>
+                    </div>
+                </div>
             </div>
-            <div className="widgets">
-                <Grid columns={3}>
-                    {renderWidgets()}
-                </Grid>
-            </div>
-        </div>
-    );
-};
+        )
+    }
+}
 
-
-
-export default Dashboard;
+export default connect(
+    mapStateToProps,
+    dispatchProps
+)(Dashboard);

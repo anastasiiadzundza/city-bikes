@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -6,14 +6,13 @@ import {
     Redirect
 } from "react-router-dom";
 import './App.scss';
-import SignInView from "./SignInView/SignInView";
+import SignInButton from "./SignInButton/SignInButton";
 import Dashboard from "./Dashboard/Dashboard";
 import googleService from '../services/google.service';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const App: FunctionComponent<{}> = () => {
-    const [isLoading, setIsLoading] = useState(true);
-    googleService().initGoogleAuth(setIsLoading);
+    googleService().initGoogleAuth();
     return (
         <Router>
             <Switch>
@@ -27,7 +26,7 @@ const App: FunctionComponent<{}> = () => {
                     <Dashboard/>
                 </PrivateRoute>
                 <Route path="/signin">
-                    <SignInView isLoading={isLoading} />
+                    <SignInButton></SignInButton>
                 </Route>
             </Switch>
         </Router>
