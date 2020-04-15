@@ -8,11 +8,9 @@ import {
 import './App.scss';
 import SignInButton from "./SignInButton/SignInButton";
 import Dashboard from "./Dashboard/Dashboard";
-import googleService from '../services/google.service';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const App: FunctionComponent<{}> = () => {
-    googleService().initGoogleAuth();
     return (
         <Router>
             <Switch>
