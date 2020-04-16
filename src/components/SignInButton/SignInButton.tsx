@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent } from 'react';
 import './SignInButton.scss';
-import googleService from '../../services/google.service';
 import {
     useHistory,
     useLocation
 } from "react-router-dom";
+import GoogleLogin from 'react-google-login';
 
 const SignInButton: FunctionComponent<{}> = () => {
     
@@ -12,19 +12,26 @@ const SignInButton: FunctionComponent<{}> = () => {
     let location = useLocation();
 
     let {from} = location.state || {from: {pathname: "/dashboard"}};
-
-    useEffect(() => {
-        googleService().renderSignInButton(onSuccess);
-    });
     
     const onSuccess = (googleUser) => {
         localStorage.setItem('userId', googleUser.getId());
         history.replace(from);
     };
-    
+
+    const onFailure = () => {
+
+    };
+
     return (
         <div className="signin-button">
-            <button id="login-button"></button>
+            <GoogleLogin
+                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                buttonText="Sign in"
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                cookiePolicy={'single_host_origin'}
+                isSignedIn={true}
+            />
         </div>
     );
 };
